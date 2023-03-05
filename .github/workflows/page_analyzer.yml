@@ -1,0 +1,33 @@
+name: Check Python CI
+
+on: 
+  - push
+  - pull_request
+
+jobs: 
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: [3.10.0]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          make install
+      - name: Start linter and tests
+        run: |
+          make check
+      - name: Test & publish code coverage
+      uses: paambaati/codeclimate-action@v3.2.0
+      if: github.ref_name == 'main'
+      env:
+        CC_TEST_REPORTER_ID: b2201e61a51599ec438bc9201eecf67c68e32d4098e37aaf4424ac7adb991a0c
+      with:
+        coverageCommand: make test-coverage
+        coverageLocations: ${{github.workspace}}/coverage.lcov:lcov
