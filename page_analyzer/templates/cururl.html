@@ -27,7 +27,7 @@
     {% endfor %}
   {% endif %}
   <div class="container">
-    <h1 class="mt-4 mb-2">Сайт: {{cururl}}</h1>
+    <h1 class="mt-4 mb-2">Сайт: {{current_url[1]}}</h1>
     <div class="row">
       <div class="col">
         <table class="table table-hover table-bordered mb-5" data-test="url">
@@ -44,7 +44,7 @@
             
             <tr>
                 <td>Дата создания</td>
-                <td>{{current_url[2]}}</td>
+                <td>{{current_url[2].strftime('%Y-%m-%d')}}</td>
             </tr>
 
         </table>
@@ -54,7 +54,7 @@
 
   <div class="container">
     <h2 class="mt-3 mb-2">Проверки</h1>
-    <form class="row" action="{{ url_for('check_url', id=id) }}" method="post">
+    <form class="row" action="{{ url_for('check_url', id=current_url[0]) }}" method="post">
         <div class="col-sm-auto">
             <button type="submit" class="btn btn-primary my-2">Запустить проверку</button>
         </div>
@@ -71,14 +71,14 @@
                 <th>description</th>
                 <th>Дата создания</th>
               </tr>
-              {% for check in checks %}
+              {% for check in allchecks %}
               <tr>
                 <td>{{check[0]}}</td>
                 <td>{{check[2]}}</td>
                 <td>{{check[3]}}</td>
                 <td>{{check[4]}}</td>
                 <td>{{check[5]}}</td>
-                <td>{{check[6]}}</td>
+                <td>{{check[6].strftime('%Y-%m-%d')}}</td>
               </tr>
               {% endfor %}
 
