@@ -42,11 +42,17 @@
             <td>
               {% for check in lastcheck %} 
                 {% if check[0] == url[0]%}
-                  {{check[1].strftime('%Y-%m-%d')}}
+                  {{check[2].strftime('%Y-%m-%d')}}
                 {% endif %}
               {% endfor %}
             </td>
-            <td>200</td>
+            <td>
+              {% for check in lastcheck %} 
+                {% if check[0] == url[0]%}
+                  {{check[1]}}
+                {% endif %}
+              {% endfor %}
+            </td>
           </tr>
           {% endfor %}
       </table>

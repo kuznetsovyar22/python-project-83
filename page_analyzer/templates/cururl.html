@@ -23,7 +23,14 @@
   </nav>
   {% if messages %}
     {% for message in messages %}
-      <div class="alert alert-success"> {{ message[1] }}</div> 
+
+      {% if message[0] == 'success'%}
+        <div class="alert alert-success"> {{ message[1] }}</div> 
+      {% elif message[0] == 'info' %}
+        <div class="alert alert-primary"> {{ message[1] }}</div>
+      {% else %}
+        <div class="alert alert-danger"> {{ message[1] }}</div> 
+      {% endif %}
     {% endfor %}
   {% endif %}
   <div class="container">
